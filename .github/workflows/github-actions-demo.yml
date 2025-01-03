@@ -16,3 +16,21 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Setup"
+
+  build:
+    needs: setup # 종속 (원래 Workflow의 job들은 모두 동시에 병렬로 실행)
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Build"
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test"
+    
